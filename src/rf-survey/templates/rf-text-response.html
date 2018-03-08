@@ -1,0 +1,12 @@
+    <section>
+        <div class="container">
+            <a href="javascript:history.go(-1)" class="back back-top"><< Back</a>
+            <ul class="text-response">
+                {% for response in responses %}
+                    <li>{{response.answer|raw}}</li>
+                {% endfor %}
+            </ul>
+            <a href="javascript:window.print()" class="print">Print</a>
+            <a href="javascript:history.go(-1)" class="back"><< Back</a>
+        </div>
+    </section>

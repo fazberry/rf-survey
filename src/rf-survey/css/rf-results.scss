@@ -1,0 +1,111 @@
+li.question-bar {
+    padding: 5px;
+    position: relative;
+    color: white;
+    height: 18px;
+}
+
+.percentage-bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-color: #ccc;
+    width: 100%;
+}
+
+.percentage-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background: #004488;
+    background: -webkit-linear-gradient(left, #4894cf, #131b47);
+    background: -o-linear-gradient(left, #4894cf, #131b47);
+    background: -moz-linear-gradient(left, #4894cf, #131b47);
+    background: linear-gradient(left, #4894cf, #131b47);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4894cf', endColorstr='#131b47',GradientType=1 );
+}
+
+
+.emoji .question-bar .emoji-icon {
+    position: absolute;
+    left: -32px;
+    top: 2px;
+    width: 24px;
+    height: 24px;
+    background-image: url('../assets/images/emoji-results.png');
+    background-repeat: no-repeat;
+}
+
+.emoji .question-bar--1 .emoji-icon {background-position: -39px -5px;}
+.emoji .question-bar--2 .emoji-icon {background-position: -73px -5px;}
+.emoji .question-bar--3 .emoji-icon {background-position: -5px -39px;}
+.emoji .question-bar--4 .emoji-icon {background-position: -39px -39px;}
+.emoji .question-bar--5 .emoji-icon {background-position: -5px -5px;}
+
+.print,
+.download,
+.back {
+    float: right;
+    display: block;
+    padding: 7px 10px;
+    margin-top: 20px;
+    margin-left: 10px;
+    background: #0073aa;
+    color: white;
+    text-decoration: none;
+} 
+.back-top {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.text-response {
+    clear: both;
+    list-style: initial;
+    margin-left: 25px;
+}
+
+.text-response li {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.view-text {
+    text-align: center;
+}
+
+.view-text a {
+    background: #f4792a;
+    padding: 7px 10px;
+    color: white;
+    text-decoration: none;
+    margin: 20px;
+}
+
+span.percent {
+    float: right;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+@media print {
+    
+    html {background: none; padding-top: 0;}
+
+    #wpcontent, #wpfooter {
+        margin-left: 0;
+    }
+
+    #adminmenumain,
+    #wpfooter,
+    .print {
+        display: none;
+    }
+
+}

@@ -1,0 +1,110 @@
+{% if survey.message %}
+
+    {% include 'message.html' %}
+
+{% else %}
+
+    {% if not survey.completed %}
+        <section class="survey-container {% if shortcode %}survey-shortcode{% else %}survey-fullpage{% endif %}">
+            <div class="progressbar"></div>
+            <div class="survey-contents">
+                <form id="survey" autocomplete="off" method="post" action="/wp-admin/admin-ajax.php?action=survey_submit">
+                    <input class="survey-id" type="hidden" value="{{ survey.id }}" name="survey_id" />
+                    <ol class="the-survey">
+                        <li>
+                            <div class="survey-intro">
+                                {% if not shortcode %}
+                                    <h3>{{ survey.title|raw }}</h3>
+                                {% endif %}
+                                {{ survey.content|raw }}
+
+                                {% if not shortcode %}
+                                    <a href="#" class="take-survey form-next">Take the Survey</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                        {% for question in survey.questions %}
+                            <li class="{{question.type}}" data-required="{{ question.required }}">
+                                <p class="required-error-message">* This question is required. Please complete to continue.</p>
+                                <label class="question">{{question.question|raw}}</label>
+                                {% if question.add_image %}
+                                    <img src="{{ getImage(question.image, 'full') }}" class="question-image" />
+                                {% endif %}
+                                <div>
+                                    {% if question.type == 'emoji' or question.type == 'score' %}
+                                        {% for i in 1..5 %}
+                                            <span>
+                                                <label for="q{{loop.parent.loop.index}}o{{loop.index}}" class="v{{i}}" name="q{{loop.parent.loop.index}}" type="radio">{{i}}</label>
+                                                <input id="q{{loop.parent.loop.index}}o{{loop.index}}" class="v{{i}}" value="{{i}}" name="q{{loop.parent.loop.index}}" type="radio" />
+                                            </span>
+                                        {% endfor %}
+                                        {% if question.type == 'score' %}
+                                            <div class="key">
+                                                5 = Positive<br />
+                                                1 = Negative
+                                            </div>
+                                        {% endif %}
+                                    {% elseif question.type == 'text' %}
+                                        <textarea id="textarea" name="q{{loop.index}}"></textarea>
+                                    {% elseif question.type == 'multiple' and question.options|length > 6 and question.allowed_choices == 1 %}
+                                        <span>
+                                            <select id="q{{loop.index}}" name="q{{loop.index}}">
+                                                <option value="" disabled selected>Select your option</option>
+                                                {% for option in question.options %}
+                                                    <option value="{{loop.index}}">{{option.option}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </span>
+                                    {% elseif question.type == 'multiple' %}
+                                        {% for option in question.options %}
+                                            <span>
+                                                <label for="q{{loop.parent.loop.index}}o{{loop.index}}"><i class="fa fa-circle" aria-hidden="true"></i> {{option.option}}</label>
+                                                <input id="q{{loop.parent.loop.index}}o{{loop.index}}" name="q{{loop.parent.loop.index}}[]" value="{{loop.index}}" type="{{ question.allowed_choices > 1 ? 'checkbox' : 'radio' }}" />
+                                            </span>
+                                        {% endfor %}
+                                    {% elseif question.type == 'group' %}
+                                        <div class="group-table">
+                                            <table>
+                                                <tr>
+                                                    <th></th>
+                                                    {% for answer in question.answers %}
+                                                        <th>{{answer.answer}}</th>
+                                                    {% endfor %}
+                                                </tr>
+                                            {% for question in question.questions %}
+                                                <tr class="border-top">
+                                                    <td class="question">{{question.m_question}}</td>
+                                                    {% for answer in loop.parent.question.answers %}
+                                                        <td>
+                                                            <label for="q{{loop.parent.loop.parent.loop.index}}o{{loop.index}}">{{answer.answer}}</label>
+                                                            <input id="q{{loop.parent.loop.parent.loop.index}}o{{loop.index}}" name="q{{loop.parent.loop.parent.loop.index}}[{{loop.parent.loop.index}}]" value="{{loop.index}}" type="radio" />
+                                                        </td>
+                                                    {% endfor %}
+                                                </tr>
+                                            {% endfor %}
+                                            </table>
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                            </li>
+                        {% endfor %}
+                    </ol>
+                    <div class="error">Please fill the field before continuing</div>
+                    {% if not shortcode %}
+                        <div class="qnumber"><span class="qnumber-current"></span>/<span class="qnumber-total"></span></div>
+                        <div class="form-nav">
+                            <a href="#" class="form-prev">Previous</a>
+                            <a href="#" class="form-next">Next</a>
+                            <input class="submit" type="button" value="Submit" />
+                        </div>
+                    {% else %}
+                        <input class="submit" type="button" value="Submit" />
+                    {% endif %}
+                </form>
+            </div>
+        </section>
+    {% endif %}
+
+    {% include 'completed.html' %}
+{% endif %}

@@ -1,0 +1,48 @@
+
+    <section>
+        <div class="container">
+            <div class="total-users">Total participance: {{totalUsers}}</div>
+            <ol class="the-survey-results">
+                {% for question in questions %}
+                    <li class="{{question.type}}">
+                        {{question.question|raw}}
+                        <ul>
+                            {% if question.type == 'emoji' or question.type == 'score' %}
+                                {% for i in 1..5 %}
+                                    <li class="question-bar question-bar--{{i}}">{% if question.type == 'score' %}{{i}}: {% endif %}<span>{{question.results[i - 1]}}</span> <span class="percent">{{(question.results[i - 1]/totalUsers * 100)|round(2, 'floor')}}%</span><div class="percentage-background"></div><div class="percentage-bar" style="width:{{question.percentages[i - 1]}}%;"></div>{% if question.type == 'emoji' %}<div class="emoji-icon"></div>{% endif %}</li>
+                                {% endfor %}
+                            {% elseif question.type == 'text' %}
+                                <li class="view-text"><a href="?post_type=survey&page=survey-results&surveyId={{surveyId}}&view={{loop.index}}">View Text Responses</a></li>
+                            {% elseif question.type == 'multiple' %}
+                                {% for option in question.options %}
+                                    <li class="question-bar">{{option.option}}: <span>{{question.results[loop.index0]}}</span> <span class="percent">{{(question.results[loop.index0]/totalUsers * 100)|round(2, 'floor')}}%</span><div class="percentage-background"></div><div class="percentage-bar" style="width:{{question.percentages[loop.index0]}}%;"></div></li>
+                                {% endfor %}
+                            {% elseif question.type == 'group' %}
+                                {% for question in question.questions %}
+                                    <li class="multiple-question"><span>{{question.m_question}}</span>
+                                        <ul>
+                                        {% for answer in loop.parent.question.answers %}
+                                            <li class="question-bar">{{answer.answer}}: <span>{{loop.parent.loop.parent.question.results[loop.parent.loop.index0][loop.index0]}}</span> <span class="percent">{{(loop.parent.loop.parent.question.results[loop.parent.loop.index0][loop.index0]/totalUsers * 100)|round(2, 'floor')}}%</span><div class="percentage-background"></div><div class="percentage-bar" style="width:{{loop.parent.loop.parent.question.percentages[loop.parent.loop.index0][loop.index0]}}%;"></div></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ol>
+            <a href="javascript:window.print()" class="print rf-results--print">Print</a> 
+            <a href="#" class="download rf-results--download">Download</a>
+        </div>
+    </section>
+    <script>
+        (function($){  
+            $('.download').on('click', function(e){
+                e.preventDefault();
+                $.get('?post_type=survey&page=survey-results&surveyId={{surveyId}}&download', function(){
+                    window.location = '{{ siteUrl }}/wp-admin/{{surveySlug}}.csv'
+                });
+            });
+        }(jQuery));
+    </script>

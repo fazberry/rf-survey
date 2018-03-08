@@ -1,0 +1,462 @@
+html,body  {
+	margin: 0;
+}
+
+.survey-container {
+	font-size: 1rem;
+	margin: 40px auto;
+	.qnumber,
+	.form-nav {
+		display: none;
+	}
+	.survey-contents {
+	    margin: 0 auto;
+		#survey {
+			ol.the-survey {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+
+
+
+				li {
+					overflow: hidden;
+					margin-bottom: 20px;
+					&.emoji,
+					&.score {
+						span {
+							display: block;
+						    float: left;
+						    width: 20%;
+
+						    input {
+						    	display: none;
+						    }
+
+						}
+					    .checked {
+					    	label {
+					    		outline: none;
+					    		-webkit-text-stroke: 3px #ff9900;
+								color: #004488;
+								text-shadow: 3px 3px 0 #ff9900, 
+								-3px -3px 0 #ff9900, 
+								3px -3px 0 #ff9900, 
+								-3px 3px 0 #ff9900, 
+								3px 3px 0 #ff9900;
+
+					    	}
+					    }
+					    label {			    	
+				    		&:active {
+						    	outline: none;
+						    }
+					    }
+					}
+
+					label {
+					    cursor: pointer;
+					    display: block;
+
+					    &.question {
+					    	text-align: left;
+					        font-size: 0.8em;
+    						margin-bottom: 1em;
+					    }
+
+					    p {
+					    	margin-bottom: 10px;
+					    }
+
+					    &:active {
+					    	outline: 3px solid #ff9900;
+					    }
+					}
+
+					.checked {
+						label {
+							outline: 3px solid #ff9900;
+						}
+					}
+
+					.question-image {
+						height: 150px;
+					}
+
+					&.text {
+						textarea {
+						    width: 100%;
+						    box-sizing: border-box;
+						    border: 1px solid #333;
+						    min-height: 100px;
+						    font-size: 0.5em;
+						}
+					}
+
+					&.multiple {
+						span {
+							display: block;
+						    font-size: 0.9em;
+						    padding: 5px;
+						    font-weight: normal;
+
+						    input:checked + label {
+						    	color: #666;
+						    }
+
+						    label {
+						    	padding: 20px;
+						    	.fa-circle {
+						    		vertical-align: middle;
+						    		background-position: center;
+						    		background-repeat: no-repeat;
+						    		width: 32px;
+						    		height: 32px;
+						    		background-image: url('../assets/images/checkbox-unchecked.png');
+						    		display: inline-block;
+						    		margin: 0 20px 0 0;
+						    	}
+						    }
+
+						    &.checked {
+						    	label {
+						    		color: #666;
+						    		background: #eee;
+						    		.fa-circle {
+						    			background-image: url('../assets/images/checkbox-checked.png');
+						    		}
+						    	}
+						    }
+
+						    input {
+						    	display: none;
+						    }
+
+						    select {
+						    	padding: 0 20px;
+						    	width: 100%;
+						    }
+						}
+					}
+
+					&.group {
+						.group-table {
+					    	table {
+								label {
+								    display: none;
+								}
+							}
+					   	}
+					}
+
+					&.emoji {
+						span {
+
+							label {
+								width: 70px;
+							    height: 70px;
+							    background-repeat: no-repeat;
+							    text-indent: -9999px;
+							    display: inline-block;
+							    margin-top: 1em;
+							    background-image: url('../assets/images/spritesheet.png');
+
+							    &.v1 {
+									background-position: -5px -165px;
+							    }
+							    &.v2 {
+							    	background-position: -245px -5px;
+							    }
+							    &.v3 {
+							    	background-position: -85px -165px;
+							    }
+							    &.v4 {
+							    	background-position: -165px -165px;
+							    }
+							    &.v5 {
+							    	background-position: -165px -85px;
+							    }
+							}
+
+							input {
+								&.v1:checked + label {
+									background-position: -85px -5px;
+							    }
+							    &.v2:checked + label {
+							    	background-position: -85px -85px;
+							    }
+							    &.v3:checked + label {
+							    	background-position: -165px -5px;
+							    }
+							    &.v4:checked + label {
+							    	background-position: -5px -85px;
+							    }
+							    &.v5:checked + label {
+							    	background-position: -5px -5px;
+							    }
+							}
+						
+							&.checked label.v1 {
+								background-position: -85px -5px;
+							}
+							&.checked label.v2 {
+								background-position: -85px -85px;
+							}
+							&.checked label.v3 {
+								background-position: -165px -5px;
+							}
+							&.checked label.v4 {
+								background-position: -5px -85px;
+							}
+							&.checked label.v5 {
+								background-position: -5px -5px;
+							}
+						}
+					}
+
+					&.score {
+
+						span {
+							label {
+								text-indent: -9999px;
+							    text-indent: 0;
+							    text-align: center;
+							    font-size: 3em;
+							    margin-top: 0.3em;
+							}
+
+							&.checked label {
+								color: #004488;
+							}
+
+							input:checked + label {
+								color: #004488;
+							}
+						}
+
+						.key {
+							font-size: 0.5em;
+						}
+
+					}
+				}
+			}
+
+			.error {
+				display: none;
+				color: red;
+			}
+		}
+
+	}
+}
+
+.hide-survey-footer {
+	.survey-fullpage .survey-contents {
+		.qnumber,
+		.form-nav {
+			display: none;
+		}
+	}
+}
+
+.survey-fullpage {
+	.progressbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 6px;
+		background-color: #333;
+		transition: 0.5s;
+	    z-index: 1;
+	}
+	.survey-contents {
+	    margin: 0 auto;
+	    padding: 0 20px;
+	    position: relative;
+		.the-survey {
+			li {
+				font-size: 2.5em;
+			    display: none;
+
+			    .survey-intro {
+			    	h3 {
+					    font-size: 1em;
+					    margin-bottom: 10px;
+			    	}
+
+			    	p {
+    					font-size: 0.5em;
+			    	}
+
+			    	.take-survey {
+		    		    color: #333;
+					    font-size: 0.5em;
+					    padding: 18px 40px;
+					    display: inline-block;
+					    margin: 60px 0 20px;
+					    border-radius: 3px;
+					    transition: .2s;
+					    border: 2px solid #333;
+
+					    &:hover {
+					    	background: #333;
+    						color: white;
+					    }
+			    	}
+			    }
+
+			    &.group {
+					.group-table {
+				    	table {
+				    		width: 100%;
+							margin-top: 20px;
+
+							tr {
+								&:nth-child(even) {
+									background: #eee;
+								}
+								td, th {
+									text-align: center;
+									width: 10%;
+								}
+
+								th {
+									padding-bottom: 20px;
+								}
+
+								td {
+									&.question {
+									width: 40%;
+								    padding: 10px 20px 10px 10px;
+								    text-align: left;
+									}
+									label {
+									    display: none;
+									}
+								}
+							}
+
+				    	}
+				    }
+				}
+
+				&.multiple {
+					span {
+					    font-size: 0.6em;					    
+					}
+
+					div {
+						margin: 1em auto;
+						width: 60%;
+						text-align: left;
+					    font-size: 0.6em;
+					}
+				}
+			}
+		}
+
+
+		.qnumber {
+			float: left;
+			display: block;
+		    font-size: 2em;
+		    color: #999;
+		}
+
+		.form-nav {
+			display: block;
+   		    float: right;
+			.submit {
+				display: none;
+				font-size: 1.2em;
+				padding: 7px 25px;
+				border-radius: 3px;
+				transition: .2s;
+				color: white;
+				background: rgba(34, 34, 34, 0.6);
+				transition: 0.3s;
+			    line-height: inherit;
+			    font-weight: normal;
+			    height: auto;
+			    transition: 
+			    &:hover {
+					background: rgba(34,34,34,0.9);
+				}
+			}
+
+		    .form-next,
+		    .form-prev {
+		    	font-size: 1.2em;
+				padding: 7px 25px;
+				border-radius: 3px;
+				transition: .2s;
+				display: inline-block;
+				color: white;
+				background: rgba(34,34,34,0.6);
+				transition: 0.3s;
+
+				&:hover {
+					background: rgba(34,34,34,0.9);
+				}
+		    }
+
+
+		    .form-prev {
+		    	display: none;
+		    }
+		}
+	}
+}
+
+.show-submit {
+	.survey-contents {
+		.submit {
+			display: inline-block !important;
+		}
+
+		.form-next {
+			display: none !important;
+		}
+	}
+}
+
+body.survey-error {
+	.survey-container {
+		#survey {
+			.error {
+				display: block;
+			}
+		}
+	}
+}
+
+.section-completed {
+	display: none;
+}
+
+.section-completed.show {
+	display: block !important;
+}
+
+.survey-complete {
+	.survey-container {
+		display: none;
+	}
+
+	.section-completed {
+		display: block;
+	}
+}
+
+.required-error-message {
+	display: none;
+    font-size: 0.35em;
+    color: red;
+    text-align: left;
+    margin: 0;
+}
+
+.required-error .required-error-message {
+	display: block;
+}
